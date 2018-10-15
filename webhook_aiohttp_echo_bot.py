@@ -6,13 +6,14 @@
 
 import logging
 import ssl
+from config import *
 
 from aiohttp import web
 
 import telebot
 
 
-API_TOKEN = '<api_token>'
+API_TOKEN = TELEGRAM_TOKEN
 
 WEBHOOK_HOST = '<ip/host where the bot is running>'
 WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')

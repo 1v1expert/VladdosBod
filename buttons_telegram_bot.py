@@ -22,9 +22,9 @@ def repeat_all_messages(message): # Название функции не игр�
 @bot.message_handler(content_types=["contact"])
 def repeat_all_messages(message): # Название функции не играет никакой роли, в принципе
     print(message.json['contact'])
+    print(message.contact)
     #bot.send_message(message.chat.id, message.text)
     
-
 # Инлайн-режим с непустым запросом
 @bot.inline_handler(lambda query: len(query.query) > 0)
 def query_text(query):
