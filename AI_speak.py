@@ -15,7 +15,7 @@ def get_message_answer(message):
 def work_with_alice(answer):
     g.set_input_by_id('askMe', answer)
     g.submit()
-    return g.xpath_text('//*[@id="top"]/div/div[2]/p[3]')
+    return g.xpath_text('//*[@id="top"]/div/div[2]/p[3]')[6:]
 
 if __name__=='__main__':
     bot.polling(none_stop=True)
