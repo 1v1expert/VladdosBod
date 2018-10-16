@@ -7,6 +7,10 @@ bot = TeleBot(TELEGRAM_TOKEN)
 g = grab.Grab()
 g.go('http://aiproject.ru/')
 
+@bot.message_handler(commands=['start'])
+def init(message):
+    bot.send_message(message.chat.id, "Привет, красавчик! \n Поговорим/пошалим ?")
+
 @bot.message_handler(content_types=["text"])
 def get_message_answer(message):
     bot.send_message(message.chat.id, work_with_alice(message.text))
