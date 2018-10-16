@@ -9,6 +9,7 @@ g.go('http://aiproject.ru/')
 
 @bot.message_handler(content_types=["text"])
 def get_message_answer(message):
+    bot.send_message(message.chat.id, work_with_alice(message.text))
     print(message)
 
 def work_with_alice(answer):
