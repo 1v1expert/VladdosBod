@@ -9,17 +9,11 @@ g.go('http://aiproject.ru/')
 
 @bot.message_handler(commands=['start'])
 def init(message):
-    try:
-        bot.send_message(message.chat.id, work_with_alice("Привет"))
-    except:
-        bot.send_message(message.chat.id, "Прощайте, не хочу с Вами разговаривать")
+    bot.send_message(message.chat.id, work_with_alice("Привет"))
 
 @bot.message_handler(content_types=["text"])
 def get_message_answer(message):
-    try:
-        bot.send_message(message.chat.id, work_with_alice(message.text))
-    except:
-        bot.send_message(message.chat.id, "Я отдыхаю, отдохните и Вы")
+    bot.send_message(message.chat.id, work_with_alice(message.text))
 
 def work_with_alice(answer):
     g.set_input_by_id('askMe', answer)
