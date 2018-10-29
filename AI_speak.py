@@ -1,6 +1,7 @@
 from telebot import *
 from config import *
 import grab
+bot = TeleBot(TELEGRAM_TOKEN)
 
 @bot.message_handler(commands=['start'])
 def init(message):
@@ -16,7 +17,6 @@ def work_with_alice(answer):
     return g.xpath_text('//*[@id="top"]/div/div[2]/p[3]')[6:]
 
 if __name__=='__main__':
-    bot = TeleBot(TELEGRAM_TOKEN)
     g = grab.Grab()
     g.go('http://aiproject.ru/')
     bot.polling(none_stop=True)
