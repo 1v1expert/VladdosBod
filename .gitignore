@@ -4,3 +4,4 @@ config.json
 .log
 config.py
 __pycache__/
+handler-saves/
