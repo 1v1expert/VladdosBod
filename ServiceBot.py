@@ -1,6 +1,6 @@
 from telebot import TeleBot
 from telebot import types
-from config import TELEGRAM_TOKEN
+from config import TELEGRAM_TOKEN, TEST_GROUP_ID, GROUP_ID
 import random
 
 bot = TeleBot(TELEGRAM_TOKEN)
@@ -24,8 +24,6 @@ ch_msg = ['Я пока не готов с тобой пообщаться, по�
           'Я очень рад, что ты попался довольно общительный, но данный функционал ещё в разработке',
           'Мм, тебе скучно, давай пообщаемся, но в другой раз']
 stickers = ['CAADAgADfx8AAulVBRi8dixJA2XkPhYE', 'CAADAgADex8AAulVBRjkuOTEW319pBYE', 'CAADAgADhR8AAulVBRiL1RvzSAWMyBYE']
-
-TEST_GROUP_ID = -296701690
 
 
 class Request:
@@ -60,7 +58,7 @@ def send_sticker(message):
 def process_create_request(message):
     msg = bot.reply_to(message, ch_msg[random.randint(1, len(ch_msg))-1])
     bot.send_sticker(data=stickers[random.randint(0, len(stickers)-1)], chat_id=message.chat.id)
-    bot.send_sticker(data=stickers[random.randint(0, len(stickers) - 1)], chat_id=GROUP_ID)
+    bot.send_sticker(data=stickers[random.randint(0, len(stickers) - 1)], chat_id=TEST_GROUP_ID)
 
 
 @bot.message_handler(commands=['new'])
@@ -121,6 +119,7 @@ def process_status_step(message):
         bot.send_message(chat_id,
                          mm)
         bot.send_message(TEST_GROUP_ID, mm)
+        bot.send_message(GROUP_ID, mm)
     except Exception as e:
         bot.reply_to(message, 'oooops, что-то пошло не так')
 
