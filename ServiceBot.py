@@ -36,11 +36,9 @@ class Request:
 		self.cell = None  # self.sex = None
 
 
-# Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-	msg = bot.reply_to(message, "Привет, {} {}\n "
-	                            "Если хочешь создать заявку на изменение статуса, то напиши мне /new.\n"
+	msg = bot.reply_to(message, "Привет, {} {}\n Если хочешь создать заявку на изменение статуса, то напиши мне /new.\n"
 	                            "Если же хочешь просто поболтать, то напиши мне /Talk_to_me".format(
 		message.chat.first_name, message.chat.last_name))
 
@@ -119,7 +117,7 @@ def process_status_step(message):
 			bot.register_next_step_handler(msg, process_cell_step)
 			return
 		
-		output_info(chat_id, req=random.randint(9999, 99999), number=user.number, number_point=user.number_point,
+		output_info(message, req=random.randint(9999, 99999), number=user.number, number_point=user.number_point,
 		            status=user.status,
 		            reason=user.reason)  # mm = 'Заявка №{} создана. \n Отправление: {}\n Почтомат: {}\n Статус: {}\n Причина: {}'.format(  # random.randint(9999, 99999), )  # bot.send_message(chat_id, mm)  # bot.send_message(TEST_GROUP_ID, mm)  # bot.send_message(GROUP_ID, mm)
 	except Exception as e:
@@ -134,18 +132,20 @@ def process_cell_step(message):
 			pass
 		user = user_dict[chat_id]
 		user.cell = cell
-		output_info(chat_id, req=random.randint(9999, 99999), number=user.number, number_point=user.number_point,
+		output_info(message, req=random.randint(9999, 99999), number=user.number, number_point=user.number_point,
 		            status=user.status, reason=user.reason, cell=user.cell)
 	except IndexError:
 		msg = bot.reply_to(message, 'Некорректный ввод, повторите пожалуйста.')
 		bot.register_next_step_handler(msg, process_number_step)
 
 
-def output_info(chat_id, req=None, number=None, number_point=None, status=None, reason=None, cell=None):
-	mm = 'Заявка №{} создана. \n Отправление: {}\n Почтомат: {}\n Статус: {}\n Причина: {}\n'.format(req, number, number_point, status, reason)
+def output_info(message, req=None, number=None, number_point=None, status=None, reason=None, cell=None):
+	mm = 'Заявка №{} создана {}. \n Отправление: {}\n Почтомат: {}\n Статус: {}\n Причина: {}\n'.format(message.username, req, number,
+	                                                                                                 number_point,
+	                                                                                                 status, reason)
 	if cell is not None:
 		mm += 'Ячейка: {}'.format(cell)
-	bot.send_message(chat_id, mm)
+	bot.send_message(message.chat.id, mm)
 	bot.send_message(TEST_GROUP_ID, mm)
 	bot.send_message(GROUP_ID, mm)
 
