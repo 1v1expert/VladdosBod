@@ -121,7 +121,7 @@ def process_status_step(message):
 		            status=user.status,
 		            reason=user.reason)  # mm = 'Заявка №{} создана. \n Отправление: {}\n Почтомат: {}\n Статус: {}\n Причина: {}'.format(  # random.randint(9999, 99999), )  # bot.send_message(chat_id, mm)  # bot.send_message(TEST_GROUP_ID, mm)  # bot.send_message(GROUP_ID, mm)
 	except Exception as e:
-		bot.reply_to(message, 'oooops, что-то пошло не так')
+		bot.reply_to(message, 'oooops, что-то пошло не так, {}'.format(e))
 
 
 def process_cell_step(message):
@@ -140,9 +140,7 @@ def process_cell_step(message):
 
 
 def output_info(message, req=None, number=None, number_point=None, status=None, reason=None, cell=None):
-	mm = 'Заявка №{} создана {}. \n Отправление: {}\n Почтомат: {}\n Статус: {}\n Причина: {}\n'.format(message.username, req, number,
-	                                                                                                 number_point,
-	                                                                                                 status, reason)
+	mm = 'Заявка №{} создана @{}. \n Отправление: {}\n Почтомат: {}\n Статус: {}\n Причина: {}\n'.format(req, message.chat.username, number, number_point, status, reason)
 	if cell is not None:
 		mm += 'Ячейка: {}'.format(cell)
 	bot.send_message(message.chat.id, mm)
